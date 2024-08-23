@@ -2,6 +2,7 @@ import './App.css'
 import {Outlet, Route, Routes} from "react-router";
 import {Header} from "./components/Header/Header";
 import {Spinner} from "./components/Spinner/Spinner";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
