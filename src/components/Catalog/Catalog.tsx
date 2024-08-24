@@ -16,7 +16,7 @@ export function Catalog() {
     useEffect(() => {
         dispatch(fetchCategories());
         dispatch(fetchGoods(filter));
-    }, []) // mounted
+    }, [dispatch, filter]) // mounted
     if (errorCatalog || errorCategories) {
         return (<ErrorWidget error={errorCatalog || errorCategories}/>)
     }

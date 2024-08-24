@@ -10,7 +10,7 @@ export function Hits() {
     const dispatch = useAppDispatch();
     useEffect(() => {
         dispatch(fetchHits());
-    }, []) // mounted
+    }, [dispatch]) // mounted
     if (!loading && !error && hits.length == 0) {
         return (<></>); //empty
     }
