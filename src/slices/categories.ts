@@ -1,32 +1,28 @@
 import {asyncThunkCreator, buildCreateSlice, PayloadAction} from "@reduxjs/toolkit";
-import {CatalogFilter, CatalogState, Item} from "../types";
-import {getGoodsFromServer} from "../serverApi";
+import {CategoriesState, Category} from "../types";
+import {getCategoriesFromServer} from "../serverApi";
 
 const createSliceWithThunk = buildCreateSlice({
     creators: {asyncThunk: asyncThunkCreator}
 })
 
 const initialState = {
-    goods: [],
+    categories: [],
     loading: false,
     error: null,
-    filter: null,
-} as CatalogState;
+} as CategoriesState;
 
-export const catalogSlice = createSliceWithThunk({
-    name: "catalog",
+export const categoriesSlice = createSliceWithThunk({
+    name: "categories",
     initialState,
     selectors: {
-        catalogState: (state) => state,
+        categoriesState: (state) => state,
     },
     reducers: (create) => ({
-        setFilter: create.reducer((state, action: PayloadAction<CatalogFilter>) => {
-           state.filter = action.payload;
-        }),
-        fetchGoods: create.asyncThunk<Item[], CatalogFilter | null>(
-            async  (filter: CatalogFilter | null, thunkApi) => {
+        fetchCategories: create.asyncThunk<Category[]>(
+            async  (__, thunkApi) => {
                 try {
-                    return await getGoodsFromServer(filter);
+                    return await getCategoriesFromServer();
                 } catch (e) {
                     return thunkApi.rejectWithValue(e as Error);
                 }
@@ -36,8 +32,8 @@ export const catalogSlice = createSliceWithThunk({
                     state.loading = true;
                     state.error = null;
                 },
-                fulfilled: (state, action: PayloadAction<Item[]>) => {
-                    state.goods = action.payload ? action.payload : [];
+                fulfilled: (state, action: PayloadAction<Category[]>) => {
+                    state.categories = action.payload ? action.payload : [];
                 },
                 rejected: (state, action) => {
                     state.error = action.payload as Error;
@@ -49,5 +45,5 @@ export const catalogSlice = createSliceWithThunk({
     })
 })
 
-export const {fetchGoods, setFilter} = catalogSlice.actions;
-export const {catalogState} = catalogSlice.selectors;
+export const {fetchCategories} = categoriesSlice.actions;
+export const {categoriesState} = categoriesSlice.selectors;

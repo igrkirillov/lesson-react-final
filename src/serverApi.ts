@@ -1,4 +1,4 @@
-import {CatalogFilter, Item} from "./types";
+import {CatalogFilter, Category, Item} from "./types";
 
 export const getHitsFromServer = async (): Promise<Item[]> => {
     return fetch(import.meta.env.VITE_SERVER_URL + "/api/top-sales")
@@ -29,4 +29,14 @@ function createQueryStringFromCatalogFilter(filter: CatalogFilter | null): strin
         params.set("q", filter.searchText);
     }
     return params.toString();
+}
+
+export const getCategoriesFromServer = async (): Promise<Category[]> => {
+    return fetch(import.meta.env.VITE_SERVER_URL + "/api/categories")
+        .then(async response => {
+            if (!response.ok) {
+                throw Error(response.statusText);
+            }
+            return (await response.json()) as Category[];
+        })
 }
