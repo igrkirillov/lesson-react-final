@@ -6,6 +6,7 @@ import {ErrorWidget} from "../ErrorWidget/ErrorWidget";
 import {Spinner} from "../Spinner/Spinner";
 import {catalogState, fetchGoods} from "../../slices/catalog";
 import {categoriesState, fetchCategories} from "../../slices/categories";
+import {Search} from "./Search";
 
 export function Catalog() {
     const {loading: loadingCatalog, error: errorCatalog, goods, filter} = useAppSelector(catalogState);
@@ -26,9 +27,7 @@ export function Catalog() {
             <h2 className="text-center">Каталог</h2>
             {loadingCatalog || loadingCategories ? (<Spinner/>) : (
                 <>
-                    <form className="catalog-search-form form-inline">
-                        <input className="form-control" placeholder="Поиск"/>
-                    </form>
+                    <Search/>
                     <CatalogMenu categories={categories}/>
                     <div className="row">
                         {goods.map(item => (<ItemCard item={item}/>))}
