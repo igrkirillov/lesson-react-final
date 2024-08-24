@@ -17,12 +17,14 @@ export function Hits() {
     if (error) {
         return (<ErrorWidget error={error}/>)
     }
-    return loading ? (<Spinner/>) : (
+    return (
         <section className="top-sales">
                 <h2 className="text-center">Хиты продаж!</h2>
-                <div className="row">
-                    {hits.map(hit => (<ItemCard item={hit}/>))}
-                </div>
+                {loading ? (<Spinner/>) : (
+                    <div className="row">
+                        {hits.map(hit => (<ItemCard item={hit}/>))}
+                    </div>
+                )}
         </section>
     );
 }

@@ -21,19 +21,23 @@ export function Catalog() {
     if (errorCatalog || errorCategories) {
         return (<ErrorWidget error={errorCatalog || errorCategories}/>)
     }
-    return loadingCatalog || loadingCategories ? (<Spinner/>) : (
+    return (
         <section className="catalog">
             <h2 className="text-center">Каталог</h2>
-            <form className="catalog-search-form form-inline">
-                <input className="form-control" placeholder="Поиск"/>
-            </form>
-            <CatalogMenu categories={categories}/>
-            <div className="row">
-                {goods.map(item => (<ItemCard item={item}/>))}
-            </div>
-            <div className="text-center">
-                <button className="btn btn-outline-primary">Загрузить ещё</button>
-            </div>
+            {loadingCatalog || loadingCategories ? (<Spinner/>) : (
+                <>
+                    <form className="catalog-search-form form-inline">
+                        <input className="form-control" placeholder="Поиск"/>
+                    </form>
+                    <CatalogMenu categories={categories}/>
+                    <div className="row">
+                        {goods.map(item => (<ItemCard item={item}/>))}
+                    </div>
+                    <div className="text-center">
+                        <button className="btn btn-outline-primary">Загрузить ещё</button>
+                    </div>
+                </>
+            )}
         </section>
     );
 }
