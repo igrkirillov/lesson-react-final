@@ -1,4 +1,5 @@
 export type Item = {
+    id: number,
     title: string,
     price: number,
     images: string[]
@@ -19,7 +20,7 @@ export type HitsState = LoadingState & {
 }
 
 export type CatalogFilter = {
-    categoryId: number,
+    categoryId: number | null,
     searchText: string,
     offset: number
 }

@@ -22,7 +22,7 @@ export function Hits() {
                 <h2 className="text-center">Хиты продаж!</h2>
                 {loading ? (<Spinner/>) : (
                     <div className="row">
-                        {hits.map(hit => (<ItemCard item={hit}/>))}
+                        {hits.map(hit => (<ItemCard key={hit.id} item={hit}/>))}
                     </div>
                 )}
         </section>

@@ -7,6 +7,7 @@ import {Spinner} from "../Spinner/Spinner";
 import {catalogState, fetchGoods} from "../../slices/catalog";
 import {categoriesState, fetchCategories} from "../../slices/categories";
 import {Search} from "./Search";
+import {Item} from "../../types";
 
 export function Catalog() {
     const {loading: loadingCatalog, error: errorCatalog, goods, filter} = useAppSelector(catalogState);
@@ -16,9 +17,6 @@ export function Catalog() {
         dispatch(fetchCategories());
         dispatch(fetchGoods(filter));
     }, []) // mounted
-    if (!loadingCatalog && !errorCatalog && goods.length == 0) {
-        return (<></>); //empty
-    }
     if (errorCatalog || errorCategories) {
         return (<ErrorWidget error={errorCatalog || errorCategories}/>)
     }
@@ -29,14 +27,25 @@ export function Catalog() {
                 <>
                     <Search/>
                     <CatalogMenu categories={categories}/>
-                    <div className="row">
-                        {goods.map(item => (<ItemCard item={item}/>))}
-                    </div>
-                    <div className="text-center">
-                        <button className="btn btn-outline-primary">Загрузить ещё</button>
-                    </div>
+                    {goods.length != 0 ? (<Goods goods={goods}/>) : (<div className="text-center">
+                        По заданному фильтру ничего не найдено, но есть другие товары.<br/>
+                        Попробуйте изменить фильтр.</div>)}
                 </>
             )}
         </section>
     );
+}
+
+function Goods(props: {goods: Item[]}) {
+    const {goods} = props;
+    return (
+        <>
+            <div className="row">
+                {goods.map(item => (<ItemCard key={item.id} item={item}/>))}
+            </div>
+            <div className="text-center">
+                <button className="btn btn-outline-primary">Загрузить ещё</button>
+            </div>
+        </>
+    )
 }

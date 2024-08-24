@@ -1,7 +1,7 @@
 import {CatalogFilter, Category, Item} from "./types";
 
 export const getHitsFromServer = async (): Promise<Item[]> => {
-    await delay(2);
+    await delay(1);
     return fetch(import.meta.env.VITE_SERVER_URL + "/api/top-sales")
         .then(async response => {
             if (!response.ok) {
@@ -29,11 +29,14 @@ function createQueryStringFromCatalogFilter(filter: CatalogFilter | null): strin
     if (filter && filter.searchText && filter.searchText.trim()) {
         params.set("q", filter.searchText);
     }
+    if (filter && filter.offset) {
+        params.set("offset", String(filter.offset));
+    }
     return params.toString();
 }
 
 export const getCategoriesFromServer = async (): Promise<Category[]> => {
-    await delay(2);
+    await delay(1);
     return fetch(import.meta.env.VITE_SERVER_URL + "/api/categories")
         .then(async response => {
             if (!response.ok) {

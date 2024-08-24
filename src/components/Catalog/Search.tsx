@@ -1,4 +1,4 @@
-import {FormEvent, useEffect, useRef} from "react";
+import {FormEvent, useRef} from "react";
 import {useAppDispatch, useAppSelector} from "../../hooks";
 import {catalogState, fetchGoods, setFilter} from "../../slices/catalog";
 import {CatalogFilter} from "../../types";
@@ -14,9 +14,6 @@ export function Search() {
         dispatch(setFilter(newFilter));
         dispatch(fetchGoods(newFilter));
     }
-    useEffect(() => {
-        searchInputRef.current?.focus({preventScroll: true});
-    }) // every render
     return (
         <form className="catalog-search-form form-inline" onSubmit={onSubmit}>
             <input name="search-input" ref={searchInputRef} defaultValue={filter?.searchText} className="form-control" placeholder="Поиск"/>
