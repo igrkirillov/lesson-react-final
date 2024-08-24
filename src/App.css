@@ -1,14 +1,24 @@
 @import url("../src/assets/css/style.css");
 
-/*.card-img-top {*/
-/*    display: block;*/
-/*    margin: auto;*/
-/*}*/
+.card-img-top {
+    display: block;
+    margin: auto;
+    height: 214px;
+    object-fit: scale-down;
+}
 
-/*.card {*/
-/*    justify-content: end;*/
-/*}*/
+.card {
+    justify-content: end;
+}
 
-/*.catalog-item-card {*/
-/*    height: 436px;*/
-/*}*/
+.catalog-item-card {
+    height: 436px;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: end;
+    flex-grow: 1;
+}
