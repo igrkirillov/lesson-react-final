@@ -1,13 +1,6 @@
-import {useNavigate} from "react-router";
-import {MouseEvent} from "react";
 import logoImage from "../../assets/img/header-logo.png"
 
 export function Header() {
-    const navigate = useNavigate();
-    const onHomeClick = (event: MouseEvent<HTMLDivElement>) => {
-        event.preventDefault();
-        navigate("/");
-    }
     return (
         <header className="container">
             <div className="row">

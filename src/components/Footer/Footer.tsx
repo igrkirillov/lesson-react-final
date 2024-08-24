@@ -1,12 +1,4 @@
-import {useNavigate} from "react-router";
-import {MouseEvent} from "react";
-
 export function Footer() {
-    const navigate = useNavigate();
-    const onHomeClick = (event: MouseEvent<HTMLDivElement>) => {
-        event.preventDefault();
-        navigate("/");
-    }
     return (
         <footer className="container bg-light footer">
             <div className="row">
