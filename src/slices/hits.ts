@@ -34,6 +34,7 @@ export const hitsSlice = createSliceWithThunk({
                 },
                 fulfilled: (state, action: PayloadAction<Item[]>) => {
                     state.hits = action.payload ? action.payload : [];
+                    state.isWarmed = true;
                 },
                 rejected: (state, action) => {
                     state.error = action.payload as Error;

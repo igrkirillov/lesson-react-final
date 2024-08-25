@@ -10,13 +10,15 @@ import {Search} from "./Search";
 import {Item} from "../../types";
 
 export function Catalog() {
-    const {loading: loadingCatalog, error: errorCatalog, goods, filter} = useAppSelector(catalogState);
+    const {loading: loadingCatalog, error: errorCatalog, goods, filter, isWarmed} = useAppSelector(catalogState);
     const {loading: loadingCategories, error: errorCategories, categories} = useAppSelector(categoriesState);
     const dispatch = useAppDispatch();
     useEffect(() => {
-        dispatch(fetchCategories());
-        dispatch(fetchGoods());
-    }, [dispatch, filter]) // mounted
+        if (!isWarmed) {
+            dispatch(fetchCategories());
+            dispatch(fetchGoods());
+        }
+    }, [dispatch, filter, goods]) // mounted
     if (errorCatalog || errorCategories) {
         return (<ErrorWidget error={errorCatalog || errorCategories}/>)
     }

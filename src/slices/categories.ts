@@ -34,6 +34,7 @@ export const categoriesSlice = createSliceWithThunk({
                 },
                 fulfilled: (state, action: PayloadAction<Category[]>) => {
                     state.categories = action.payload ? action.payload : [];
+                    state.isWarmed = true;
                 },
                 rejected: (state, action) => {
                     state.error = action.payload as Error;

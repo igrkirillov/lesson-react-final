@@ -47,6 +47,7 @@ export const getCategoriesFromServer = async (): Promise<Category[]> => {
 }
 
 export const getItemDetailInfoFromServer = async (id: string): Promise<DetailInfo> => {
+    await delay(1);
     return fetch(import.meta.env.VITE_SERVER_URL + "/api/items/" + id)
         .then(async response => {
             if (!response.ok) {

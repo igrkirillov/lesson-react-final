@@ -6,11 +6,13 @@ import {useEffect} from "react";
 import {ItemCard} from "../ItemCard/ItemCard";
 
 export function Hits() {
-    const {loading, error, hits} = useAppSelector(hitsState);
+    const {loading, error, hits, isWarmed} = useAppSelector(hitsState);
     const dispatch = useAppDispatch();
     useEffect(() => {
-        dispatch(fetchHits());
-    }, [dispatch]) // mounted
+        if (!isWarmed) {
+            dispatch(fetchHits());
+        }
+    }, [dispatch, isWarmed]) // mounted
     if (!loading && !error && hits.length == 0) {
         return (<></>); //empty
     }

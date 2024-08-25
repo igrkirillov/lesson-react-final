@@ -35,6 +35,7 @@ export type Category = {
 type LoadingState = {
     loading: boolean,
     error: Error | null,
+    isWarmed?: boolean
 }
 
 export type HitsState = LoadingState & {

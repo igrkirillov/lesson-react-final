@@ -3,6 +3,7 @@ import {useAppDispatch} from "../../hooks";
 import {fetchGoods, setSearchText} from "../../slices/catalog";
 import {FormEvent, MouseEvent, useEffect, useRef, useState} from "react";
 import {useNavigate} from "react-router";
+import {NavLink} from "react-router-dom";
 
 export function Header() {
     return (
@@ -10,22 +11,22 @@ export function Header() {
             <div className="row">
                 <div className="col">
                     <nav className="navbar navbar-expand-sm navbar-light bg-light">
-                        <a className="navbar-brand" href="/">
+                        <NavLink to="/" className="navbar-brand">
                             <img src={logoImage} alt="Bosa Noga"/>
-                        </a>
+                        </NavLink>
                         <div className="collapse navbar-collapse" id="navbarMain">
                             <ul className="navbar-nav mr-auto">
                                 <li className="nav-item active">
-                                    <a className="nav-link" href="/">Главная</a>
+                                    <NavLink to="/" className="nav-link">Главная</NavLink>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="/catalog">Каталог</a>
+                                    <NavLink to="/catalog" className="nav-link">Каталог</NavLink>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="/about">О магазине</a>
+                                    <NavLink to="/about" className="nav-link">О магазине</NavLink>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="/contacts">Контакты</a>
+                                    <NavLink to="/contacts" className="nav-link">Контакты</NavLink>
                                 </li>
                             </ul>
                             <div className="navbar-collapse">

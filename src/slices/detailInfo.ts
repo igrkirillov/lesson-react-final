@@ -34,6 +34,7 @@ export const detailInfoSlice = createSliceWithThunk({
                 },
                 fulfilled: (state, action: PayloadAction<DetailInfo>) => {
                     state.detailInfo = action.payload ? action.payload : null;
+                    state.isWarmed = true;
                 },
                 rejected: (state, action) => {
                     state.error = action.payload as Error;
