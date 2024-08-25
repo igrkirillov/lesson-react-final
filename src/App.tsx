@@ -10,6 +10,7 @@ import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import {ContactsPage} from "./pages/ContactsPage/ContactsPage";
 import {AboutPage} from "./pages/AboutPage/AboutPage";
 import {CatalogPage} from "./pages/CatalogPage/CatalogPage";
+import {ItemPage} from "./pages/ItemPage/ItemPage";
 
 const router = createBrowserRouter([
     {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
             {
                 path: "/catalog",
                 element: <CatalogPage />,
+            },
+            {
+                path: "/catalog/:id",
+                element: <ItemPage />,
             },
             {
                 path: "/contacts",

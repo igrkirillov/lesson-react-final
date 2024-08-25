@@ -1,7 +1,6 @@
 import {FormEvent, useRef} from "react";
 import {useAppDispatch, useAppSelector} from "../../hooks";
-import {catalogState, fetchGoods, setFilter} from "../../slices/catalog";
-import {CatalogFilter} from "../../types";
+import {catalogState, fetchGoods, setSearchText} from "../../slices/catalog";
 
 export function Search() {
     const {filter} = useAppSelector(catalogState);
@@ -10,8 +9,7 @@ export function Search() {
     const onSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const searchText = (searchInputRef.current?.value || "").trim();
-        const newFilter = {...filter, searchText} as CatalogFilter;
-        dispatch(setFilter(newFilter));
+        dispatch(setSearchText(searchText));
         dispatch(fetchGoods());
     }
     return (

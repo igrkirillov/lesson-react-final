@@ -1,6 +1,6 @@
 import {asyncThunkCreator, buildCreateSlice, PayloadAction} from "@reduxjs/toolkit";
-import {CatalogFilter, CatalogState, Item} from "../types";
-import {getGoodsFromServer} from "../serverApi";
+import {CatalogFilter, CatalogState, Item, DetailInfo} from "../types";
+import {getGoodsFromServer, getItemDetailInfoFromServer} from "../serverApi";
 
 const createSliceWithThunk = buildCreateSlice({
     creators: {asyncThunk: asyncThunkCreator}
@@ -11,6 +11,7 @@ const initialState = {
     loading: false,
     error: null,
     filter: null,
+    detailInfo: null
 } as CatalogState;
 
 export const catalogSlice = createSliceWithThunk({
@@ -33,9 +34,6 @@ export const catalogSlice = createSliceWithThunk({
            } else {
                state.filter = {searchText: action.payload} as CatalogFilter
            }
-        }),
-        setFilter: create.reducer((state, action: PayloadAction<CatalogFilter>) => {
-           state.filter = action.payload;
         }),
         fetchGoods: create.asyncThunk<Item[], void, {state: any}>(
             async  (__, thunkApi) => {
@@ -60,9 +58,32 @@ export const catalogSlice = createSliceWithThunk({
                 settled: (state) => {
                     state.loading = false;
                 }
+            }),
+        fetchDetailInfo: create.asyncThunk<DetailInfo, number>(
+            async  (id, thunkApi) => {
+                try {
+                    return await getItemDetailInfoFromServer(id);
+                } catch (e) {
+                    return thunkApi.rejectWithValue(e as Error);
+                }
+            },
+            {
+                pending: (state) => {
+                    state.loading = true;
+                    state.error = null;
+                },
+                fulfilled: (state, action: PayloadAction<DetailInfo>) => {
+                    state.detailInfo = action.payload ? action.payload : null;
+                },
+                rejected: (state, action) => {
+                    state.error = action.payload as Error;
+                },
+                settled: (state) => {
+                    state.loading = false;
+                }
             })
     })
 })
 
-export const {fetchGoods, setFilter, setCategoryId, setSearchText} = catalogSlice.actions;
+export const {fetchGoods, setCategoryId, setSearchText, fetchItemDetailInfo} = catalogSlice.actions;
 export const {catalogState} = catalogSlice.selectors;

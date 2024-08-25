@@ -1,4 +1,4 @@
-import {CatalogFilter, Category, Item} from "./types";
+import {CatalogFilter, Category, Item, DetailInfo} from "./types";
 
 export const getHitsFromServer = async (): Promise<Item[]> => {
     await delay(1);
@@ -43,6 +43,16 @@ export const getCategoriesFromServer = async (): Promise<Category[]> => {
                 throw Error(response.statusText);
             }
             return (await response.json()) as Category[];
+        })
+}
+
+export const getItemDetailInfoFromServer = async (id: string): Promise<DetailInfo> => {
+    return fetch(import.meta.env.VITE_SERVER_URL + "/api/items/" + id)
+        .then(async response => {
+            if (!response.ok) {
+                throw Error(response.statusText);
+            }
+            return (await response.json()) as DetailInfo;
         })
 }
 

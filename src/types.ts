@@ -5,6 +5,28 @@ export type Item = {
     images: string[]
 }
 
+export type StockSize = {
+    size: string,
+    available: boolean
+}
+
+export type DetailInfo = {
+    id: number,
+    category: number,
+    title: string,
+    images: string[],
+    sku: string,
+    manufacturer: string,
+    color: string,
+    material: string,
+    reason: string,
+    season: string,
+    heelSize: string,
+    price: number,
+    oldPrice: number,
+    sizes: StockSize[]
+}
+
 export type Category = {
     id: number,
     title: string
@@ -32,4 +54,17 @@ export type CatalogState = LoadingState & {
 
 export type CategoriesState = LoadingState & {
     categories: Category[],
+}
+
+export type DetailInfoState = LoadingState & {
+    detailInfo: DetailInfo | null,
+}
+
+export type Position = {
+    item: Item,
+    size: number
+}
+
+export type BasketState = {
+    positions: Position[];
 }

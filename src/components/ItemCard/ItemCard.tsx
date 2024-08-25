@@ -6,7 +6,9 @@ export function ItemCard(props: {item: Item}) {
     return (
         <div className="col-4">
             <div className="card catalog-item-card">
-                <img src={item.images[0]} className="card-img-top img-fluid" alt={item.title}/>
+                <a href={`/catalog/${item.id}`}>
+                    <img src={item.images[0]} className="card-img-top img-fluid" alt={item.title}/>
+                </a>
                 <div className="card-body">
                     <p className="card-text">{item.title}</p>
                     <p className="card-text">{formatPrice(item.price)} руб.</p>
