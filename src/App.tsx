@@ -7,6 +7,9 @@ import {MainPage} from "./pages/MainPage/MainPage";
 import {Provider} from "react-redux";
 import {store} from "./store";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import {ContactsPage} from "./pages/ContactsPage/ContactsPage";
+import {AboutPage} from "./pages/AboutPage/AboutPage";
+import {CatalogPage} from "./pages/CatalogPage/CatalogPage";
 
 const router = createBrowserRouter([
     {
@@ -16,6 +19,18 @@ const router = createBrowserRouter([
             {
                 path: "/",
                 element: <MainPage />,
+            },
+            {
+                path: "/catalog",
+                element: <CatalogPage />,
+            },
+            {
+                path: "/contacts",
+                element: <ContactsPage />,
+            },
+            {
+                path: "/about",
+                element: <AboutPage />,
             },
         ],
     },
@@ -35,7 +50,13 @@ function Layout() {
     return (
         <div className="layout">
             <Header/>
-            <Outlet/>
+            <main className="container">
+                <div className="row">
+                    <div className="col">
+                        <Outlet/>
+                    </div>
+                </div>
+            </main>
             <Footer/>
         </div>
     )
