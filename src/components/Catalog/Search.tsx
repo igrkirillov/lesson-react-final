@@ -12,11 +12,11 @@ export function Search() {
         const searchText = (searchInputRef.current?.value || "").trim();
         const newFilter = {...filter, searchText} as CatalogFilter;
         dispatch(setFilter(newFilter));
-        dispatch(fetchGoods(newFilter));
+        dispatch(fetchGoods());
     }
     return (
         <form id="search" className="catalog-search-form form-inline" onSubmit={onSubmit}>
-            <input name="search-input" ref={searchInputRef} defaultValue={filter?.searchText} className="form-control" placeholder="Поиск"/>
+            <input name="search-input" ref={searchInputRef} defaultValue={filter && filter.searchText ? filter.searchText : ""} className="form-control" placeholder="Поиск"/>
         </form>
     )
 }

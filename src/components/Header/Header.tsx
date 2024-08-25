@@ -1,6 +1,6 @@
 import logoImage from "../../assets/img/header-logo.png"
-import {useAppDispatch, useAppSelector} from "../../hooks";
-import {catalogState, fetchGoods, setSearchText} from "../../slices/catalog";
+import {useAppDispatch} from "../../hooks";
+import {fetchGoods, setSearchText} from "../../slices/catalog";
 import {FormEvent, MouseEvent, useEffect, useRef, useState} from "react";
 import {useNavigate} from "react-router";
 
