@@ -61,6 +61,11 @@ export function ItemPage() {
                         </div>
                     </div>
                     <div className="row justify-content-center mt-2">
+                        <div className="col text-center">
+                            <IncrDecrButtons/>
+                        </div>
+                    </div>
+                    <div className="row justify-content-center mt-2">
                         <div className="col">
                             <button type="submit" className="btn btn-danger w-100">В корзину</button>
                         </div>
@@ -77,5 +82,18 @@ function StockSizeWidget(props: {size: StockSize}) {
             <input type="radio" className="btn-check" name="options" id={size.size} autoComplete="off"/>
             <label className="btn btn-outline-secondary" htmlFor={size.size}>{size.size}</label>
         </>
+    )
+}
+
+function IncrDecrButtons() {
+    return (
+        <div className="w-auto">
+            <input type="button" value="-" className="button-minus border rounded-circle  icon-shape icon-sm mx-1 "
+                   data-field="quantity"/>
+            <input type="number" step="1" max="10" value="1" name="quantity"
+                   className="quantity-field border-0 text-center w-25"/>
+            <input type="button" value="+" className="button-plus border rounded-circle icon-shape icon-sm "
+                   data-field="quantity"/>
+        </div>
     )
 }
