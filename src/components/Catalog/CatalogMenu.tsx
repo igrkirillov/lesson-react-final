@@ -1,7 +1,7 @@
 import {MouseEvent} from "react";
-import {CatalogFilter, Category} from "../../types";
+import {Category} from "../../types";
 import {useAppDispatch, useAppSelector} from "../../hooks";
-import {catalogState, fetchGoods, setFilter} from "../../slices/catalog";
+import {catalogState, fetchGoods, setCategoryId} from "../../slices/catalog";
 
 export function CatalogMenu(props: {categories: Category[]}) {
     const {categories} = props;
@@ -14,9 +14,8 @@ export function CatalogMenu(props: {categories: Category[]}) {
         event.preventDefault();
         const dataset = (event.target as HTMLAnchorElement).dataset;
         const id = dataset["id"] ? Number(dataset["id"]) : null;
-        const newFilter = {...filter, categoryId: id} as CatalogFilter;
-        dispatch(setFilter(newFilter));
-        dispatch(fetchGoods(newFilter));
+        dispatch(setCategoryId(id));
+        dispatch(fetchGoods());
     }
     if (categories.length == 0) {
         return (<></>);

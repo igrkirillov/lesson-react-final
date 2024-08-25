@@ -15,7 +15,7 @@ export function Catalog() {
     const dispatch = useAppDispatch();
     useEffect(() => {
         dispatch(fetchCategories());
-        dispatch(fetchGoods(filter));
+        dispatch(fetchGoods());
     }, [dispatch, filter]) // mounted
     if (errorCatalog || errorCategories) {
         return (<ErrorWidget error={errorCatalog || errorCategories}/>)

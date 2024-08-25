@@ -21,8 +21,8 @@ export type HitsState = LoadingState & {
 
 export type CatalogFilter = {
     categoryId: number | null,
-    searchText: string,
-    offset: number
+    searchText: string | null,
+    offset: number | null
 }
 
 export type CatalogState = LoadingState & {

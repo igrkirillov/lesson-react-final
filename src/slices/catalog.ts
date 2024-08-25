@@ -20,12 +20,27 @@ export const catalogSlice = createSliceWithThunk({
         catalogState: (state) => state,
     },
     reducers: (create) => ({
+        setCategoryId: create.reducer((state, action: PayloadAction<number|null>) => {
+            if (state.filter) {
+                state.filter.categoryId = action.payload;
+            } else {
+                state.filter = {categoryId: action.payload} as CatalogFilter
+            }
+        }),
+        setSearchText: create.reducer((state, action: PayloadAction<string|null>) => {
+           if (state.filter) {
+               state.filter.searchText = action.payload;
+           } else {
+               state.filter = {searchText: action.payload} as CatalogFilter
+           }
+        }),
         setFilter: create.reducer((state, action: PayloadAction<CatalogFilter>) => {
            state.filter = action.payload;
         }),
-        fetchGoods: create.asyncThunk<Item[], CatalogFilter | null>(
-            async  (filter: CatalogFilter | null, thunkApi) => {
+        fetchGoods: create.asyncThunk<Item[], void, {state: any}>(
+            async  (__, thunkApi) => {
                 try {
+                    const {filter} = (thunkApi.getState()["catalog"] as CatalogState);
                     return await getGoodsFromServer(filter);
                 } catch (e) {
                     return thunkApi.rejectWithValue(e as Error);
@@ -49,5 +64,5 @@ export const catalogSlice = createSliceWithThunk({
     })
 })
 
-export const {fetchGoods, setFilter} = catalogSlice.actions;
+export const {fetchGoods, setFilter, setCategoryId, setSearchText} = catalogSlice.actions;
 export const {catalogState} = catalogSlice.selectors;

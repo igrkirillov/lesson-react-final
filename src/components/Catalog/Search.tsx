@@ -15,7 +15,7 @@ export function Search() {
         dispatch(fetchGoods(newFilter));
     }
     return (
-        <form className="catalog-search-form form-inline" onSubmit={onSubmit}>
+        <form id="search" className="catalog-search-form form-inline" onSubmit={onSubmit}>
             <input name="search-input" ref={searchInputRef} defaultValue={filter?.searchText} className="form-control" placeholder="Поиск"/>
         </form>
     )
