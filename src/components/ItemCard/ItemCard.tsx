@@ -13,7 +13,7 @@ export function ItemCard(props: {item: Item}) {
                 <div className="card-body">
                     <p className="card-text">{item.title}</p>
                     <p className="card-text">{formatPrice(item.price)} руб.</p>
-                    <a href="/products/1.html" className="btn btn-outline-primary">Заказать</a>
+                    <NavLink to={`/catalog/${item.id}`} className="btn btn-outline-primary">Заказать</NavLink>
                 </div>
             </div>
         </div>
