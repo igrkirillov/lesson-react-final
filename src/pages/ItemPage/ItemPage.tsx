@@ -66,7 +66,6 @@ export function ItemPage() {
 function StockSizeWidget(props: {size: StockSize, sizeSelectCb: (size: string) => void}) {
     const {size, sizeSelectCb} = props;
     const onChange = (event: ChangeEvent<HTMLInputElement>) => {
-        console.dir(event)
         if (event.target.value) {
             sizeSelectCb(size.size);
         }
@@ -140,7 +139,7 @@ function AddToBasketForm(props: {detailInfo: DetailInfo}) {
             <div className="row justify-content-center mt-2">
                 <div className="col text-center">
                     <span>Размеры в наличии: </span>
-                    {detailInfo?.sizes.filter(s => s.available).map(s => (<StockSizeWidget size={s} sizeSelectCb={onSizeSelect}/>))}
+                    {detailInfo?.sizes.filter(s => s.available).map(s => (<StockSizeWidget key={s.size} size={s} sizeSelectCb={onSizeSelect}/>))}
                 </div>
             </div>
             <div className="row justify-content-center mt-2">
