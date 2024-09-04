@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
-import {Outlet} from "react-router";
+import {Navigate, Outlet} from "react-router";
 import {Header} from "./components/Header/Header";
 import {Footer} from "./components/Footer/Footer";
 import {MainPage} from "./pages/MainPage/MainPage";
@@ -12,6 +12,7 @@ import {AboutPage} from "./pages/AboutPage/AboutPage";
 import {CatalogPage} from "./pages/CatalogPage/CatalogPage";
 import {ItemPage} from "./pages/ItemPage/ItemPage";
 import {CartPage} from "./pages/CartPage/CartPage";
+import {NotFoundPage} from "./pages/NotFoundPage/NotFoundPage";
 
 const router = createBrowserRouter([
     {
@@ -41,6 +42,14 @@ const router = createBrowserRouter([
             {
                 path: "/cart",
                 element: <CartPage />,
+            },
+            {
+                path: "/404",
+                element: <NotFoundPage />,
+            },
+            {
+                path: "/*",
+                element: <Navigate to="/404"/>
             },
         ],
     },
