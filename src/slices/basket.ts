@@ -22,6 +22,7 @@ export const basketSlice = createSliceWithThunk({
     reducers: (create) => ({
         addToBasket: create.reducer((state, action: PayloadAction<Position>) => {
             state.positions.push(action.payload);
+            state.orderCreated = false;
         }),
         removeFromBasket: create.reducer((state, action: PayloadAction<Position>) => {
           const index = state.positions.findIndex(
@@ -29,6 +30,7 @@ export const basketSlice = createSliceWithThunk({
           if (index >= 0) {
               state.positions.splice(index, 1);
           }
+          state.orderCreated = false;
         }),
         postOrder: create.asyncThunk<void, DeliveryInfo, {state: any}>(
             async  (deliveryInfo, thunkApi) => {
@@ -47,6 +49,7 @@ export const basketSlice = createSliceWithThunk({
                 },
                 fulfilled: (state) => {
                     state.orderCreated = true;
+                    state.positions = [];
                 },
                 rejected: (state, action) => {
                     state.error = action.payload as Error;
@@ -58,5 +61,5 @@ export const basketSlice = createSliceWithThunk({
     })
 })
 
-export const {addToBasket, removeFromBasket} = basketSlice.actions;
+export const {addToBasket, removeFromBasket, postOrder} = basketSlice.actions;
 export const {basketState} = basketSlice.selectors;

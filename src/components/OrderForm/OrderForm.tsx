@@ -1,23 +1,40 @@
 import {FormEvent} from "react";
 import styles from "./styles.module.css"
-import {useAppSelector} from "../../hooks";
-import {basketState} from "../../slices/basket";
+import {useAppDispatch, useAppSelector} from "../../hooks";
+import {basketState, postOrder} from "../../slices/basket";
+import {DeliveryInfo} from "../../types";
+import {Spinner} from "../Spinner/Spinner";
+import {ErrorWidget} from "../ErrorWidget/ErrorWidget";
+import {OrderCreatedWidget} from "../OrderCreatedWidget/OrderCreatedWidget";
 
 export function OrderForm() {
-    const {positions} = useAppSelector(basketState);
+    const {positions, loading, error, orderCreated} = useAppSelector(basketState);
+    const dispatch = useAppDispatch();
     const onSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        const formData = new FormData(event.target as HTMLFormElement);
+        const deliveryInfo = {
+            phone: formData.get("phone"),
+            address: formData.get("address")
+        } as DeliveryInfo;
+        dispatch(postOrder(deliveryInfo));
     }
-    return (
+    if (error) {
+        return (<ErrorWidget error={error}/>)
+    }
+    if (loading) {
+        return (<Spinner/>)
+    }
+    return orderCreated ? <OrderCreatedWidget/> : (
         <form onSubmit={onSubmit} className={"w-50 m-auto border border-1 " + styles["form"]}>
             <div className="mb-3">
                 <label htmlFor="formGroupExampleInput" className="form-label">Телефон</label>
-                <input type="text" className="form-control" id="phone"
+                <input type="text" className="form-control" id="phone" name="phone"
                        placeholder="Ваш телефон" required={true}/>
             </div>
             <div className="mb-3">
                 <label htmlFor="formGroupExampleInput2" className="form-label">Адрес доставки</label>
-                <input type="text" className="form-control" id="address"
+                <input type="text" className="form-control" id="address" name="address"
                        placeholder="Адрес доставки" required={true}/>
             </div>
             <div className="col-12 mb-3">

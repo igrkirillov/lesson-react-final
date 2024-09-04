@@ -66,6 +66,10 @@ async function delay(secs: number) {
 export const postOrderToServer = async (deliveryInfo: DeliveryInfo, positions: Position[]): Promise<void> => {
     return fetch(import.meta.env.VITE_SERVER_URL + "/api/order", {
         method: "POST",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
         body: JSON.stringify({
             owner: {
                 phone: deliveryInfo.phone,
