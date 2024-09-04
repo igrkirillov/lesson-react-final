@@ -1,17 +1,20 @@
-import {asyncThunkCreator, buildCreateSlice, PayloadAction} from "@reduxjs/toolkit";
+import {asyncThunkCreator, buildCreateSlice, current, PayloadAction} from "@reduxjs/toolkit";
 import {BasketState, DeliveryInfo, Position} from "../types";
 import {postOrderToServer} from "../serverApi";
+import {loadBasketFromLocalStorage, saveBasketToLocalStorage} from "../utils";
 
 const createSliceWithThunk = buildCreateSlice({
     creators: {asyncThunk: asyncThunkCreator}
 })
 
-const initialState = {
+const defaultBasket = {
     loading: false,
     error: null,
     positions: [],
     orderCreated: false
 } as BasketState;
+
+const initialState = loadBasketFromLocalStorage(defaultBasket);
 
 export const basketSlice = createSliceWithThunk({
     name: "basket",
@@ -24,6 +27,7 @@ export const basketSlice = createSliceWithThunk({
             action.payload.reservedPrice = action.payload.detailInfo.price;
             state.positions.push(action.payload);
             state.orderCreated = false;
+            saveBasketToLocalStorage(current(state));
         }),
         removeFromBasket: create.reducer((state, action: PayloadAction<Position>) => {
           const index = state.positions.findIndex(
