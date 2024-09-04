@@ -64,7 +64,8 @@ export type DetailInfoState = LoadingState & {
 export type Position = {
     detailInfo: DetailInfo,
     size: string,
-    quantity: number
+    quantity: number,
+    reservedPrice: number
 }
 
 export type BasketState = LoadingState & {
@@ -74,5 +75,6 @@ export type BasketState = LoadingState & {
 
 export type DeliveryInfo = {
     phone: string,
-    address: string
+    address: string,
+    isAcceptDeliveryRules: boolean
 }

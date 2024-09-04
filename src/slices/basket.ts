@@ -21,6 +21,7 @@ export const basketSlice = createSliceWithThunk({
     },
     reducers: (create) => ({
         addToBasket: create.reducer((state, action: PayloadAction<Position>) => {
+            action.payload.reservedPrice = action.payload.detailInfo.price;
             state.positions.push(action.payload);
             state.orderCreated = false;
         }),

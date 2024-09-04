@@ -81,7 +81,11 @@ function ActionsBar() {
                 </div>
                 <div className="header-controls-pic header-controls-cart"
                     onClick={onClickBasket}>
-                    {positions.length > 0 ? (<div className="header-controls-cart-full">{positions.length}</div>) : ""}
+                    {positions.length > 0
+                        ? (<div className="header-controls-cart-full">
+                            {positions.map(p => p.quantity).reduce((sum, cur) => sum + cur, 0)}
+                           </div>)
+                        : ""}
                     <div className="header-controls-cart-menu"></div>
                 </div>
             </div>

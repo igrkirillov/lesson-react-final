@@ -15,7 +15,8 @@ export function OrderForm() {
         const formData = new FormData(event.target as HTMLFormElement);
         const deliveryInfo = {
             phone: formData.get("phone"),
-            address: formData.get("address")
+            address: formData.get("address"),
+            isAcceptDeliveryRules: formData.has("isAcceptDeliveryRules")
         } as DeliveryInfo;
         dispatch(postOrder(deliveryInfo));
     }
@@ -39,10 +40,12 @@ export function OrderForm() {
             </div>
             <div className="col-12 mb-3">
                 <div className="form-check">
-                    <input className="form-check-input" type="checkbox" id="isAcceptDeliveryRules" required={true}/>
-                        <label className="form-check-label" htmlFor="gridCheck">
-                            Согласен с правилами доставки
-                        </label>
+                    <input className="form-check-input" type="checkbox" id="isAcceptDeliveryRules"
+                           name="isAcceptDeliveryRules"
+                           required={true}/>
+                    <label className="form-check-label" htmlFor="isAcceptDeliveryRules">
+                        Согласен с правилами доставки
+                    </label>
                 </div>
             </div>
             <div className="col-12">
