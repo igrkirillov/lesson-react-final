@@ -18,7 +18,7 @@ export function Catalog() {
             dispatch(fetchCategories());
             dispatch(fetchGoods());
         }
-    }, [dispatch, filter, goods]) // mounted
+    }, [dispatch, filter, goods, isWarmed]) // mounted
     if (errorCatalog || errorCategories) {
         return (<ErrorWidget error={errorCatalog || errorCategories}/>)
     }

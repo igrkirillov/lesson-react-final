@@ -4,7 +4,7 @@ import {detailInfoState, fetchDetailInfo} from "../../slices/detailInfo";
 import {ErrorWidget} from "../../components/ErrorWidget/ErrorWidget";
 import {Spinner} from "../../components/Spinner/Spinner";
 import {ChangeEvent, FormEvent, MouseEvent, useEffect, useRef, useState} from "react";
-import {DetailInfo, Position, StockSize} from "../../types";
+import {DetailInfo, StockSize} from "../../types";
 import styles from "./item-page.module.css"
 import {addToBasket} from "../../slices/basket";
 import {createPosition} from "../../utils";
@@ -15,7 +15,7 @@ export function ItemPage() {
     const dispatch = useAppDispatch();
     useEffect(() => {
         dispatch(fetchDetailInfo(String(id)));
-    }, [id])
+    }, [id, dispatch])
     if (error) {
         return (<ErrorWidget error={error}/>)
     }

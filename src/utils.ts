@@ -19,7 +19,7 @@ export function loadBasketFromLocalStorage(defaultBasket: BasketState): BasketSt
         try {
             return JSON.parse(basketStr);
         } catch (error) {
-            console.error("Ошибка парсинга баскета " + basketStr);
+            console.error("Ошибка парсинга баскета " + basketStr + ": " + error);
         }
     }
     return defaultBasket;
