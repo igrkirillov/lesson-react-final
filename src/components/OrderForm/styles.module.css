@@ -1,0 +1,10 @@
+.form {
+    padding: 1em;
+}
+
+.submit {
+    --bs-btn-color: gray;
+    --bs-btn-border-color: gray;
+    --bs-btn-disabled-color: lightgray;
+    --bs-btn-disabled-border-color: lightgray
+}

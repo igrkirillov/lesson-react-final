@@ -6,8 +6,9 @@
 }
 
 .button-incr-decr {
-    --bs-btn-line-height: 1;
     --bs-btn-border-radius: 0;
+    --bs-btn-line-height: 16px;
+    margin-bottom: 2px;
 }
 
 input.quantity::-webkit-outer-spin-button,

@@ -1,4 +1,4 @@
-import {CatalogFilter, Category, Item, DetailInfo} from "./types";
+import {CatalogFilter, Category, DeliveryInfo, DetailInfo, Item, Position} from "./types";
 
 export const getHitsFromServer = async (): Promise<Item[]> => {
     await delay(1);
@@ -61,4 +61,27 @@ async function delay(secs: number) {
     return new Promise(res => {
        setTimeout(res, secs * 1000)
     });
+}
+
+export const postOrderToServer = async (deliveryInfo: DeliveryInfo, positions: Position[]): Promise<void> => {
+    return fetch(import.meta.env.VITE_SERVER_URL + "/api/order", {
+        method: "POST",
+        body: JSON.stringify({
+            owner: {
+                phone: deliveryInfo.phone,
+                address: deliveryInfo.address
+            },
+            items: positions.map(p => {
+                return {
+                    id: p.detailInfo.id,
+                    price: p.detailInfo.price,
+                    count: p.quantity
+                }
+            })
+        })
+    }).then(async response => {
+        if (!response.ok) {
+            throw Error(response.statusText);
+        }
+    })
 }

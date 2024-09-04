@@ -4,8 +4,10 @@ import {detailInfoState, fetchDetailInfo} from "../../slices/detailInfo";
 import {ErrorWidget} from "../../components/ErrorWidget/ErrorWidget";
 import {Spinner} from "../../components/Spinner/Spinner";
 import {ChangeEvent, FormEvent, MouseEvent, useEffect, useRef, useState} from "react";
-import {DetailInfo, StockSize} from "../../types";
+import {DetailInfo, Position, StockSize} from "../../types";
 import styles from "./item-page.module.css"
+import {addToBasket} from "../../slices/basket";
+import {createPosition} from "../../utils";
 
 export function ItemPage() {
     const id = useParams()["id"];
@@ -91,6 +93,7 @@ function AddToBasketForm(props: {detailInfo: DetailInfo}) {
     const [formState, setFormState] = useState<FormState>({quantity: 1, size: null, validityMessage: null});
     const navigate = useNavigate();
     const quantityRef = useRef<HTMLInputElement>(null);
+    const dispatch = useAppDispatch();
     const setNewQuantity = (value: number) => {
         if (value < 0) {
             // значение должно быть >= 0
@@ -126,6 +129,7 @@ function AddToBasketForm(props: {detailInfo: DetailInfo}) {
         event.preventDefault();
         const validityMessage = validateFields(formState.size, formState.quantity);
         if (!validityMessage) {
+            dispatch(addToBasket(createPosition(detailInfo, formState.size as string, formState.quantity as number)));
             navigate("/cart");
         } else {
             setFormState({...formState, validityMessage: validityMessage});

@@ -1,9 +1,10 @@
 import logoImage from "../../assets/img/header-logo.png"
-import {useAppDispatch} from "../../hooks";
+import {useAppDispatch, useAppSelector} from "../../hooks";
 import {fetchGoods, setSearchText} from "../../slices/catalog";
 import {FormEvent, MouseEvent, useEffect, useRef, useState} from "react";
 import {useNavigate} from "react-router";
 import {NavLink} from "react-router-dom";
+import {basketState} from "../../slices/basket";
 
 export function Header() {
     return (
@@ -46,6 +47,7 @@ function ActionsBar() {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const [invisibleSearchForm, setInvisibleSearchForm] = useState<boolean>(true);
+    const {positions} = useAppSelector(basketState);
     const onSubmitSearchForm = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const searchText = searchInputRef.current ? searchInputRef.current.value.trim() : null;
@@ -61,6 +63,10 @@ function ActionsBar() {
         }
         setInvisibleSearchForm(!invisibleSearchForm);
     }
+    const onClickBasket = (event: MouseEvent<HTMLDivElement>) => {
+        event.preventDefault();
+        navigate("/cart");
+    }
     useEffect(() => {
         if (!invisibleSearchForm) {
             searchInputRef.current?.focus();
@@ -73,8 +79,9 @@ function ActionsBar() {
                      className="header-controls-pic header-controls-search"
                      onClick={onClickSearchIcon}>
                 </div>
-                <div className="header-controls-pic header-controls-cart">
-                    <div className="header-controls-cart-full">1</div>
+                <div className="header-controls-pic header-controls-cart"
+                    onClick={onClickBasket}>
+                    {positions.length > 0 ? (<div className="header-controls-cart-full">{positions.length}</div>) : ""}
                     <div className="header-controls-cart-menu"></div>
                 </div>
             </div>

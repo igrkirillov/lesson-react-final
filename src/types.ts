@@ -62,10 +62,17 @@ export type DetailInfoState = LoadingState & {
 }
 
 export type Position = {
-    item: Item,
-    size: number
+    detailInfo: DetailInfo,
+    size: string,
+    quantity: number
 }
 
-export type BasketState = {
+export type BasketState = LoadingState & {
     positions: Position[];
+    orderCreated: boolean
+}
+
+export type DeliveryInfo = {
+    phone: string,
+    address: string
 }
