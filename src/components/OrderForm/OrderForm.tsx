@@ -29,12 +29,12 @@ export function OrderForm() {
     return orderCreated ? <OrderCreatedWidget/> : (
         <form onSubmit={onSubmit} className={"w-50 m-auto border border-1 " + styles["form"]}>
             <div className="mb-3">
-                <label htmlFor="formGroupExampleInput" className="form-label">Телефон</label>
+                <label htmlFor="phone" className="form-label">Телефон</label>
                 <input type="text" className="form-control" id="phone" name="phone"
                        placeholder="Ваш телефон" required={true}/>
             </div>
             <div className="mb-3">
-                <label htmlFor="formGroupExampleInput2" className="form-label">Адрес доставки</label>
+                <label htmlFor="address" className="form-label">Адрес доставки</label>
                 <input type="text" className="form-control" id="address" name="address"
                        placeholder="Адрес доставки" required={true}/>
             </div>
