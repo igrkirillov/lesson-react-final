@@ -11,8 +11,8 @@ export const getHitsFromServer = async (): Promise<Item[]> => {
         })
 }
 
-export const getGoodsFromServer = async (filter: CatalogFilter | null): Promise<Item[]> => {
-    return fetch(import.meta.env.VITE_SERVER_URL + "/api/items?" + createQueryStringFromCatalogFilter(filter))
+export const getGoodsFromServer = async (filter: CatalogFilter | null, offset: number): Promise<Item[]> => {
+    return fetch(import.meta.env.VITE_SERVER_URL + "/api/items?" + createQueryStringFromCatalogFilter(filter, offset))
         .then(async response => {
             if (!response.ok) {
                 throw Error(response.statusText);
@@ -21,7 +21,7 @@ export const getGoodsFromServer = async (filter: CatalogFilter | null): Promise<
         })
 }
 
-function createQueryStringFromCatalogFilter(filter: CatalogFilter | null): string {
+function createQueryStringFromCatalogFilter(filter: CatalogFilter | null, offset: number): string {
     const params = new URLSearchParams();
     if (filter && filter.categoryId) {
         params.set("categoryId", String(filter.categoryId));
@@ -29,8 +29,8 @@ function createQueryStringFromCatalogFilter(filter: CatalogFilter | null): strin
     if (filter && filter.searchText && filter.searchText.trim()) {
         params.set("q", filter.searchText);
     }
-    if (filter && filter.offset) {
-        params.set("offset", String(filter.offset));
+    if (offset > 0) {
+        params.set("offset", String(offset));
     }
     return params.toString();
 }

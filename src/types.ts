@@ -44,13 +44,14 @@ export type HitsState = LoadingState & {
 
 export type CatalogFilter = {
     categoryId: number | null,
-    searchText: string | null,
-    offset: number | null
+    searchText: string | null
 }
 
 export type CatalogState = LoadingState & {
     goods: Item[],
     filter : CatalogFilter | null,
+    hasNext: boolean,
+    offset: number
 }
 
 export type CategoriesState = LoadingState & {
