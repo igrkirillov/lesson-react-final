@@ -1,7 +1,7 @@
 import {asyncThunkCreator, buildCreateSlice, PayloadAction} from "@reduxjs/toolkit";
 import {CatalogFilter, CatalogState, Item} from "../types";
 import {getGoodsFromServer} from "../serverApi";
-import {pageSize} from "../constants";
+import {PAGE_SIZE} from "../constants";
 
 const createSliceWithThunk = buildCreateSlice({
     creators: {asyncThunk: asyncThunkCreator}
@@ -77,11 +77,11 @@ export const catalogSlice = createSliceWithThunk({
                 pending: (state) => {
                     state.loading = true;
                     state.error = null;
-                    state.offset += pageSize;
+                    state.offset += PAGE_SIZE;
                 },
                 fulfilled: (state, action: PayloadAction<Item[]>) => {
                     state.goods.push(...action.payload);
-                    state.hasNext = action.payload.length >= pageSize;
+                    state.hasNext = action.payload.length >= PAGE_SIZE;
                 },
                 rejected: (state, action) => {
                     state.error = action.payload as Error;
